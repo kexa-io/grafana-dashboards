@@ -40,7 +40,7 @@
           "type": "grafana-postgresql-datasource",
           "uid": "${SourceDatabase}"
         },
-        "description": "To help you find rule name and validate the connection",
+        "description": "To help you find rule name of your peak alert rules and validate the connection",
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -54,6 +54,7 @@
               "inspect": false
             },
             "mappings": [],
+            "noValue": "Did not found Kubernetes Rules from last scan",
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -121,7 +122,7 @@
             "table": "rules"
           }
         ],
-        "title": "Retrieved Kubernetes Rules",
+        "title": "Retrieved Kubernetes Rules From Last Scan",
         "type": "table"
       },
       {
@@ -185,7 +186,7 @@
                   "value": 90
                 },
                 {
-                  "color": "super-light-red",
+                  "color": "light-orange",
                   "value": 100
                 }
               ]
@@ -305,7 +306,7 @@
                   "value": null
                 },
                 {
-                  "color": "red",
+                  "color": "light-orange",
                   "value": 80
                 }
               ]
@@ -831,6 +832,52 @@
                   "value": 2
                 }
               ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CPU Limit"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "color": "red",
+                          "index": 0,
+                          "text": "Not Configured"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CPU Request"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "color": "red",
+                          "index": 0,
+                          "text": "Not Configured"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1043,6 +1090,52 @@
                   "value": 2
                 }
               ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Memory Limit"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "color": "red",
+                          "index": 0,
+                          "text": "Not Configured"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Memory Request"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "color": "red",
+                          "index": 0,
+                          "text": "Not Configured"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -1240,6 +1333,7 @@
               "inspect": false
             },
             "mappings": [],
+            "noValue": "No CPU Peak Alerts for this pod",
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -1319,8 +1413,9 @@
         "fieldConfig": {
           "defaults": {
             "color": {
-              "mode": "thresholds"
+              "mode": "continuous-GrYlRd"
             },
+            "fieldMinMax": false,
             "mappings": [],
             "thresholds": {
               "mode": "absolute",
@@ -1328,10 +1423,6 @@
                 {
                   "color": "green",
                   "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
                 }
               ]
             },
@@ -1428,6 +1519,7 @@
               "inspect": false
             },
             "mappings": [],
+            "noValue": "No Memory Peak Alerts for this pod",
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -1747,6 +1839,7 @@
               "inspect": false
             },
             "mappings": [],
+            "noValue": "No Peak Alerts",
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -1764,101 +1857,12 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 4,
+          "h": 5,
           "w": 24,
           "x": 0,
           "y": 42
         },
         "id": 21,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true
-        },
-        "pluginVersion": "11.1.4",
-        "targets": [
-          {
-            "datasource": {
-              "type": "grafana-postgresql-datasource",
-              "uid": "${SourceDatabase}"
-            },
-            "editorMode": "code",
-            "format": "table",
-            "rawQuery": true,
-            "rawSql": "SELECT DISTINCT\r\n    Resources.content::jsonb->>'podName' AS \"Pod Name\",\r\n    Resources.content::jsonb->>'name' AS \"Name\",\r\n    Resources.content::jsonb->'metadata'->>'namespace' AS \"Namespace\",\r\n    Rules.name AS \"Rule Name\",\r\n    Scans.created_at AS \"Scan time\"\r\nFROM\r\n    Resources\r\nJOIN\r\n    Scans ON Resources.ID = Scans.resourceId\r\nJOIN\r\n    Rules ON Scans.ruleId = Rules.ID\r\nWHERE\r\n    Rules.name = '${CpuRule}' OR Rules.name = '${MemoryRule}'\r\nORDER BY\r\n    Scans.created_at\r\nDESC;",
-            "refId": "A",
-            "sql": {
-              "columns": [
-                {
-                  "parameters": [],
-                  "type": "function"
-                }
-              ],
-              "groupBy": [
-                {
-                  "property": {
-                    "type": "string"
-                  },
-                  "type": "groupBy"
-                }
-              ],
-              "limit": 50
-            }
-          }
-        ],
-        "title": "Peak CPU & Memory Alerts (Global)",
-        "transparent": true,
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "${SourceDatabase}"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 24,
-          "x": 0,
-          "y": 46
-        },
-        "id": 20,
         "options": {
           "cellHeight": "sm",
           "footer": {
@@ -1978,7 +1982,7 @@
           "h": 9,
           "w": 20,
           "x": 0,
-          "y": 50
+          "y": 47
         },
         "id": 1,
         "options": {
@@ -2081,12 +2085,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
+                  "color": "yellow",
                   "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
                 }
               ]
             },
@@ -2098,7 +2098,7 @@
           "h": 5,
           "w": 4,
           "x": 20,
-          "y": 50
+          "y": 47
         },
         "id": 24,
         "options": {
@@ -2181,7 +2181,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
+                  "color": "orange",
                   "value": null
                 },
                 {
@@ -2192,31 +2192,131 @@
             },
             "unit": "H~"
           },
-          "overrides": []
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Peak Day of Week"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "light-orange",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
         },
         "gridPos": {
           "h": 4,
           "w": 4,
           "x": 20,
-          "y": 55
+          "y": 52
         },
         "id": 25,
         "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "percentChangeColorMode": "standard",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
+          "infinitePan": false,
+          "inlineEditing": true,
+          "panZoom": false,
+          "root": {
+            "background": {
+              "color": {
+                "fixed": "transparent"
+              },
+              "size": "cover"
+            },
+            "border": {
+              "color": {
+                "fixed": "dark-green"
+              }
+            },
+            "constraint": {
+              "horizontal": "left",
+              "vertical": "top"
+            },
+            "elements": [
+              {
+                "background": {
+                  "color": {
+                    "field": "Peak Day of Week",
+                    "fixed": "#D9D9D9"
+                  }
+                },
+                "border": {
+                  "color": {
+                    "fixed": "dark-green"
+                  }
+                },
+                "config": {
+                  "align": "center",
+                  "color": {
+                    "fixed": "#000000"
+                  },
+                  "size": 20,
+                  "text": {
+                    "field": "Peak Day of Week",
+                    "fixed": "",
+                    "mode": "field"
+                  },
+                  "valign": "middle"
+                },
+                "connections": [
+                  {
+                    "color": {
+                      "fixed": "rgb(204, 204, 220)"
+                    },
+                    "path": "straight",
+                    "size": {
+                      "fixed": 2,
+                      "max": 10,
+                      "min": 1
+                    },
+                    "source": {
+                      "x": 0.999999867952787,
+                      "y": -1.0000001827399887
+                    },
+                    "sourceOriginal": {
+                      "x": 679,
+                      "y": 120
+                    },
+                    "target": {
+                      "x": 0.2611632248697764,
+                      "y": -0.32173898568737647
+                    },
+                    "targetOriginal": {
+                      "x": 672.1999988555908,
+                      "y": 167.19998168945312
+                    }
+                  }
+                ],
+                "constraint": {
+                  "horizontal": "left",
+                  "vertical": "top"
+                },
+                "name": "Element 1",
+                "placement": {
+                  "height": 134,
+                  "left": -40,
+                  "top": -8,
+                  "width": 294
+                },
+                "type": "metric-value"
+              }
             ],
-            "fields": "",
-            "values": false
+            "name": "Element 1724417148681",
+            "placement": {
+              "height": 100,
+              "left": 0,
+              "rotation": 0,
+              "top": 0,
+              "width": 100
+            },
+            "type": "frame"
           },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
+          "showAdvancedTypes": false
         },
         "pluginVersion": "11.1.4",
         "targets": [
@@ -2269,7 +2369,7 @@
             }
           }
         ],
-        "type": "stat"
+        "type": "canvas"
       },
       {
         "datasource": {
@@ -2295,7 +2395,7 @@
           "h": 6,
           "w": 24,
           "x": 0,
-          "y": 59
+          "y": 56
         },
         "id": 23,
         "options": {
@@ -2376,99 +2476,19 @@
         "type": "heatmap"
       },
       {
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "${SourceDatabase}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
+        "collapsed": true,
         "gridPos": {
-          "h": 4,
+          "h": 1,
           "w": 24,
           "x": 0,
-          "y": 65
+          "y": 62
         },
-        "id": 22,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true
-        },
-        "pluginVersion": "11.1.4",
-        "targets": [
-          {
-            "datasource": {
-              "type": "grafana-postgresql-datasource",
-              "uid": "${SourceDatabase}"
-            },
-            "editorMode": "builder",
-            "format": "table",
-            "rawSql": "SELECT batchid FROM scans LIMIT 50 ",
-            "refId": "A",
-            "sql": {
-              "columns": [
-                {
-                  "parameters": [
-                    {
-                      "name": "batchid",
-                      "type": "functionParameter"
-                    }
-                  ],
-                  "type": "function"
-                }
-              ],
-              "groupBy": [
-                {
-                  "property": {
-                    "type": "string"
-                  },
-                  "type": "groupBy"
-                }
-              ],
-              "limit": 50
-            },
-            "table": "scans"
-          }
-        ],
-        "title": "Scans List",
-        "type": "table"
+        "id": 29,
+        "panels": [],
+        "title": "==========================================================================================================",
+        "type": "row"
       }
     ],
-    "refresh": "",
     "schemaVersion": 39,
     "tags": [
       "Monitoring",
@@ -2534,8 +2554,8 @@
         {
           "current": {
             "selected": false,
-            "text": "mongo2-mongodb-66dfcb8c56-bk4gz",
-            "value": "mongo2-mongodb-66dfcb8c56-bk4gz"
+            "text": "azure-ip-masq-agent-hdztj",
+            "value": "azure-ip-masq-agent-hdztj"
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
@@ -2559,8 +2579,8 @@
         {
           "current": {
             "selected": false,
-            "text": "ns-mongo",
-            "value": "ns-mongo"
+            "text": "kube-system",
+            "value": "kube-system"
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
@@ -2584,8 +2604,8 @@
         {
           "current": {
             "selected": false,
-            "text": "0",
-            "value": "0"
+            "text": "0.5",
+            "value": "0.5"
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
@@ -2609,8 +2629,8 @@
         {
           "current": {
             "selected": false,
-            "text": "0",
-            "value": "0"
+            "text": "0.1",
+            "value": "0.1"
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
@@ -2634,8 +2654,8 @@
         {
           "current": {
             "selected": false,
-            "text": "0",
-            "value": "0"
+            "text": "262144000",
+            "value": "262144000"
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
@@ -2658,7 +2678,6 @@
         },
         {
           "current": {
-            "isNone": true,
             "selected": false,
             "text": "None",
             "value": ""
@@ -2684,7 +2703,7 @@
         },
         {
           "current": {
-            "selected": true,
+            "selected": false,
             "text": "grafana-clevercloud-kexa",
             "value": "edvj5frvn55vkb"
           },
@@ -2705,8 +2724,8 @@
       ]
     },
     "time": {
-      "from": "2024-08-22T12:04:39.266Z",
-      "to": "2024-08-23T11:58:53.305Z"
+      "from": "now-12h",
+      "to": "now"
     },
     "timepicker": {
       "refresh_intervals": [
@@ -2716,6 +2735,6 @@
     "timezone": "browser",
     "title": "Kexa Kubernetes Limits & Request",
     "uid": "bdvenoj9w1wqob",
-    "version": 191,
+    "version": 207,
     "weekStart": ""
   }
