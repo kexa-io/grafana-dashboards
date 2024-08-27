@@ -23,7 +23,7 @@
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -31,100 +31,100 @@
         "y": 0
       },
       "id": 19,
-      "panels": [
+      "panels": [],
+      "title": "====>🌟 HELPERS 🌟 <====",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${SourceDatabase}"
+      },
+      "description": "To help you find rule name of your peak alert rules and validate the connection",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "Did not found Kubernetes Rules from last scan",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
             "uid": "${SourceDatabase}"
           },
-          "description": "To help you find rule name of your peak alert rules and validate the connection",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "noValue": "Did not found Kubernetes Rules from last scan",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT\r\n    Rules.name AS rule_name\r\nFROM\r\n    Rules\r\nJOIN\r\n    Providers ON Rules.providerId = Providers.ID\r\nWHERE\r\n    Providers.name = 'kubernetes';",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
               }
-            },
-            "overrides": []
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
           },
-          "gridPos": {
-            "h": 5,
-            "w": 24,
-            "x": 0,
-            "y": 1
-          },
-          "id": 2,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "11.1.4",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "${SourceDatabase}"
-              },
-              "editorMode": "code",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "SELECT DISTINCT\r\n    Rules.name AS rule_name\r\nFROM\r\n    Rules\r\nJOIN\r\n    Providers ON Rules.providerId = Providers.ID\r\nWHERE\r\n    Providers.name = 'kubernetes';",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "property": {
-                      "type": "string"
-                    },
-                    "type": "groupBy"
-                  }
-                ],
-                "limit": 50
-              },
-              "table": "rules"
-            }
-          ],
-          "title": "Retrieved Kubernetes Rules From Last Scan",
-          "transparent": true,
-          "type": "table"
+          "table": "rules"
         }
       ],
-      "title": "====>🌟 HELPERS 🌟 <====",
-      "type": "row"
+      "title": "Retrieved Kubernetes Rules From Last Scan",
+      "transparent": true,
+      "type": "table"
     },
     {
       "collapsed": true,
@@ -132,7 +132,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 6
       },
       "id": 27,
       "panels": [],
@@ -145,7 +145,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 7
       },
       "id": 17,
       "panels": [],
@@ -200,7 +200,7 @@
         "h": 3,
         "w": 12,
         "x": 0,
-        "y": 3
+        "y": 8
       },
       "id": 11,
       "options": {
@@ -321,7 +321,7 @@
         "h": 3,
         "w": 12,
         "x": 12,
-        "y": 3
+        "y": 8
       },
       "id": 13,
       "options": {
@@ -462,7 +462,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "id": 7,
       "options": {
@@ -508,7 +508,7 @@
           }
         }
       ],
-      "title": "CPU for ${Pod}",
+      "title": "CPU Usage for ${Pod}",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -639,7 +639,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 6
+        "y": 11
       },
       "id": 5,
       "options": {
@@ -685,7 +685,7 @@
           }
         }
       ],
-      "title": "Memory for ${Pod}",
+      "title": "Memory Usage for ${Pod}",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -905,7 +905,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 17
       },
       "id": 14,
       "options": {
@@ -951,7 +951,7 @@
           }
         }
       ],
-      "title": "Memory for ${Pod}",
+      "title": "CPU Usage for ${Pod}",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -1180,7 +1180,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 17
       },
       "id": 15,
       "options": {
@@ -1226,7 +1226,7 @@
           }
         }
       ],
-      "title": "Memory for ${Pod}",
+      "title": "Memory Usage for ${Pod}",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -1301,7 +1301,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 23
       },
       "id": 33,
       "options": {
@@ -1352,7 +1352,7 @@
           }
         }
       ],
-      "title": "Optimization Score",
+      "title": "CPU Optimization Score",
       "transparent": true,
       "type": "stat"
     },
@@ -1406,7 +1406,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 23
       },
       "id": 32,
       "options": {
@@ -1457,7 +1457,7 @@
           }
         }
       ],
-      "title": "Optimization Score",
+      "title": "Memory Optimization Score",
       "transparent": true,
       "type": "stat"
     },
@@ -1494,7 +1494,7 @@
         "h": 13,
         "w": 4,
         "x": 0,
-        "y": 22
+        "y": 27
       },
       "id": 4,
       "options": {
@@ -1602,7 +1602,7 @@
         "h": 13,
         "w": 8,
         "x": 4,
-        "y": 22
+        "y": 27
       },
       "id": 3,
       "options": {
@@ -1682,7 +1682,7 @@
         "h": 13,
         "w": 4,
         "x": 12,
-        "y": 22
+        "y": 27
       },
       "id": 8,
       "options": {
@@ -1789,7 +1789,7 @@
         "h": 13,
         "w": 8,
         "x": 16,
-        "y": 22
+        "y": 27
       },
       "id": 16,
       "options": {
@@ -1872,7 +1872,7 @@
         "h": 3,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 40
       },
       "id": 31,
       "options": {
@@ -1960,7 +1960,7 @@
         "h": 3,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 40
       },
       "id": 30,
       "options": {
@@ -2021,11 +2021,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 43
       },
-      "id": 26,
+      "id": 28,
       "panels": [],
-      "title": "====>⚡⚡ CONSUMPTION PEAKS (all pods) ⚡⚡<====",
+      "title": "==========================================================================================================",
       "type": "row"
     },
     {
@@ -2034,11 +2034,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 44
       },
-      "id": 28,
+      "id": 26,
       "panels": [],
-      "title": "==========================================================================================================",
+      "title": "====>⚡⚡ CONSUMPTION PEAKS⚡⚡<====",
       "type": "row"
     },
     {
@@ -2046,97 +2046,7 @@
         "type": "grafana-postgresql-datasource",
         "uid": "${SourceDatabase}"
       },
-      "description": "All kexa memory & CPU peak alerts",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "noValue": "No Peak Alerts",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 40
-      },
-      "id": 21,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "11.1.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "${SourceDatabase}"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT DISTINCT\r\n    Resources.content::jsonb->>'podName' AS \"Pod Name\",\r\n    Resources.content::jsonb->>'name' AS \"Name\",\r\n    Resources.content::jsonb->'metadata'->>'namespace' AS \"Namespace\",\r\n    Rules.name AS \"Rule Name\",\r\n    Scans.created_at AS \"Scan time\"\r\nFROM\r\n    Resources\r\nJOIN\r\n    Scans ON Resources.ID = Scans.resourceId\r\nJOIN\r\n    Rules ON Scans.ruleId = Rules.ID\r\nWHERE\r\n    Rules.name = '${CpuRule}' OR Rules.name = '${MemoryRule}'\r\nORDER BY\r\n    Scans.created_at\r\nDESC;",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Peak CPU & Memory Alerts (Global)",
-      "transparent": true,
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${SourceDatabase}"
-      },
-      "description": "CPU usage average week heatmap (all time)",
+      "description": "CPU usage average week heatmap (all time / selected pod)",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2156,7 +2066,7 @@
         "h": 23,
         "w": 16,
         "x": 0,
-        "y": 46
+        "y": 45
       },
       "id": 36,
       "options": {
@@ -2234,7 +2144,7 @@
           "table": "scans"
         }
       ],
-      "title": "CPU Usage per Hour / Week day (all time)",
+      "title": "CPU Usage per Hour / Week day (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -2272,10 +2182,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 4,
+        "w": 4,
         "x": 16,
-        "y": 46
+        "y": 45
       },
       "id": 24,
       "options": {
@@ -2305,7 +2215,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'CPUUsage')::numeric) AS \"Total CPU Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total CPU Usage\" DESC\r\nLIMIT 1;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2326,7 +2236,7 @@
           }
         }
       ],
-      "title": "Peak Hour (beta)",
+      "title": "CPU Peak Hour (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -2355,6 +2265,137 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "H~"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 45
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "edvj5frvn55vkb"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'CPUUsage')::numeric) AS \"Total CPU Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total CPU Usage\" ASC\r\nLIMIT 1;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CPU Bottom Hour (all time / selected pod)",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "Hour"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${SourceDatabase}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Sunday"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Monday"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Tuesday"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Wednesday"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Thursday"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Friday"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Saturday"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2389,12 +2430,12 @@
         ]
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
+        "h": 5,
+        "w": 4,
         "x": 16,
-        "y": 54
+        "y": 49
       },
-      "id": 25,
+      "id": 44,
       "options": {
         "infinitePan": false,
         "inlineEditing": true,
@@ -2409,7 +2450,8 @@
           "border": {
             "color": {
               "fixed": "dark-green"
-            }
+            },
+            "width": 0
           },
           "constraint": {
             "horizontal": "left",
@@ -2419,7 +2461,7 @@
             {
               "background": {
                 "color": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "#D9D9D9"
                 }
               },
@@ -2435,41 +2477,13 @@
                 },
                 "size": 20,
                 "text": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "",
                   "mode": "field"
                 },
                 "valign": "middle"
               },
-              "connections": [
-                {
-                  "color": {
-                    "fixed": "rgb(204, 204, 220)"
-                  },
-                  "path": "straight",
-                  "size": {
-                    "fixed": 2,
-                    "max": 10,
-                    "min": 1
-                  },
-                  "source": {
-                    "x": 0.999999867952787,
-                    "y": -1.0000001827399887
-                  },
-                  "sourceOriginal": {
-                    "x": 679,
-                    "y": 120
-                  },
-                  "target": {
-                    "x": 0.2611632248697764,
-                    "y": -0.32173898568737647
-                  },
-                  "targetOriginal": {
-                    "x": 672.1999988555908,
-                    "y": 167.19998168945312
-                  }
-                }
-              ],
+              "connections": [],
               "constraint": {
                 "horizontal": "left",
                 "vertical": "top"
@@ -2477,8 +2491,8 @@
               "name": "Element 1",
               "placement": {
                 "height": 134,
-                "left": 95,
-                "top": 45,
+                "left": -30,
+                "top": 7,
                 "width": 294
               },
               "type": "metric-value"
@@ -2506,7 +2520,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH WeeklyUsage AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS \"DayOfWeek\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(DOW FROM Scans.created_at)\r\n)\r\nSELECT\r\n    CASE \"DayOfWeek\"\r\n        WHEN 0 THEN 'Sunday'\r\n        WHEN 1 THEN 'Monday'\r\n        WHEN 2 THEN 'Tuesday'\r\n        WHEN 3 THEN 'Wednesday'\r\n        WHEN 4 THEN 'Thursday'\r\n        WHEN 5 THEN 'Friday'\r\n        WHEN 6 THEN 'Saturday'\r\n    END AS \"Peak Day of Week\"\r\nFROM\r\n    WeeklyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "WITH UsageData AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS day_of_week,\r\n        EXTRACT(HOUR FROM Scans.created_at) AS hour_of_day,\r\n        (Resources.content::jsonb->>'CPUUsage')::float AS CPUUsage\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n),\r\nAggregatedData AS (\r\n    SELECT\r\n        day_of_week,\r\n        AVG(CPUUsage) AS avg_cpu_usage\r\n    FROM\r\n        UsageData\r\n    GROUP BY\r\n        day_of_week\r\n)\r\nSELECT\r\n    day_of_week AS day,\r\n    avg_cpu_usage\r\nFROM\r\n    AggregatedData\r\nORDER BY\r\n    avg_cpu_usage DESC\r\nLIMIT 1;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2527,7 +2541,209 @@
           }
         }
       ],
-      "title": "Peak Day (beta)",
+      "title": "CPU Peak Day (all time / selected pod)",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [],
+            "fields": {}
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${SourceDatabase}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Sunday"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Monday"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Tuesday"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Wednesday"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Thursday"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Friday"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Saturday"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-yellow",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "H~"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Peak Day of Week"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 49
+      },
+      "id": 45,
+      "options": {
+        "infinitePan": false,
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "size": "cover"
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "day",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 20,
+                "text": {
+                  "field": "day",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "Element 1",
+              "placement": {
+                "height": 134,
+                "left": -26,
+                "top": 7,
+                "width": 294
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1724417148681",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": false
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "edvj5frvn55vkb"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH UsageData AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS day_of_week,\r\n        EXTRACT(HOUR FROM Scans.created_at) AS hour_of_day,\r\n        (Resources.content::jsonb->>'CPUUsage')::float AS CPUUsage\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n),\r\nAggregatedData AS (\r\n    SELECT\r\n        day_of_week,\r\n        AVG(CPUUsage) AS avg_cpu_usage\r\n    FROM\r\n        UsageData\r\n    GROUP BY\r\n        day_of_week\r\n)\r\nSELECT\r\n    day_of_week AS day,\r\n    avg_cpu_usage\r\nFROM\r\n    AggregatedData\r\nORDER BY\r\n    avg_cpu_usage ASC\r\nLIMIT 1;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "CPU Bottom Day (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -2555,17 +2771,26 @@
         "type": "grafana-postgresql-datasource",
         "uid": "${SourceDatabase}"
       },
+      "description": "All kexa memory & CPU peak alerts (All Data)",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
           "mappings": [],
+          "noValue": "No Peak Alerts",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "orange",
+                "color": "green",
                 "value": null
               },
               {
@@ -2573,146 +2798,40 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "H~"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Peak Day of Week"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "super-light-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 13,
         "w": 8,
         "x": 16,
-        "y": 61
+        "y": 54
       },
-      "id": 41,
+      "id": 50,
       "options": {
-        "infinitePan": false,
-        "inlineEditing": true,
-        "panZoom": false,
-        "root": {
-          "background": {
-            "color": {
-              "fixed": "transparent"
-            },
-            "size": "cover"
-          },
-          "border": {
-            "color": {
-              "fixed": "dark-green"
-            }
-          },
-          "constraint": {
-            "horizontal": "left",
-            "vertical": "top"
-          },
-          "elements": [
-            {
-              "background": {
-                "color": {
-                  "field": "Peak Day of Week",
-                  "fixed": "#D9D9D9"
-                }
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "align": "center",
-                "color": {
-                  "fixed": "#000000"
-                },
-                "size": 20,
-                "text": {
-                  "field": "Peak Day of Week",
-                  "fixed": "",
-                  "mode": "field"
-                },
-                "valign": "middle"
-              },
-              "connections": [
-                {
-                  "color": {
-                    "fixed": "rgb(204, 204, 220)"
-                  },
-                  "path": "straight",
-                  "size": {
-                    "fixed": 2,
-                    "max": 10,
-                    "min": 1
-                  },
-                  "source": {
-                    "x": 0.999999867952787,
-                    "y": -1.0000001827399887
-                  },
-                  "sourceOriginal": {
-                    "x": 679,
-                    "y": 120
-                  },
-                  "target": {
-                    "x": 0.2611632248697764,
-                    "y": -0.32173898568737647
-                  },
-                  "targetOriginal": {
-                    "x": 672.1999988555908,
-                    "y": 167.19998168945312
-                  }
-                }
-              ],
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "Element 1",
-              "placement": {
-                "height": 134,
-                "left": 95,
-                "top": 45,
-                "width": 294
-              },
-              "type": "metric-value"
-            }
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
           ],
-          "name": "Element 1724417148681",
-          "placement": {
-            "height": 100,
-            "left": 0,
-            "rotation": 0,
-            "top": 0,
-            "width": 100
-          },
-          "type": "frame"
+          "show": false
         },
-        "showAdvancedTypes": false
+        "showHeader": true
       },
       "pluginVersion": "11.1.4",
       "targets": [
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "edvj5frvn55vkb"
+            "uid": "${SourceDatabase}"
           },
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH WeeklyUsage AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS \"DayOfWeek\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(DOW FROM Scans.created_at)\r\n)\r\nSELECT\r\n    CASE \"DayOfWeek\"\r\n        WHEN 0 THEN 'Sunday'\r\n        WHEN 1 THEN 'Monday'\r\n        WHEN 2 THEN 'Tuesday'\r\n        WHEN 3 THEN 'Wednesday'\r\n        WHEN 4 THEN 'Thursday'\r\n        WHEN 5 THEN 'Friday'\r\n        WHEN 6 THEN 'Saturday'\r\n    END AS \"Peak Day of Week\"\r\nFROM\r\n    WeeklyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "SELECT DISTINCT\r\n    Resources.content::jsonb->>'podName' AS \"Pod Name\",\r\n    Resources.content::jsonb->>'name' AS \"Name\",\r\n    Resources.content::jsonb->'metadata'->>'namespace' AS \"Namespace\",\r\n    Rules.name AS \"Rule Name\",\r\n    Scans.created_at AS \"Scan time\"\r\nFROM\r\n    Resources\r\nJOIN\r\n    Scans ON Resources.ID = Scans.resourceId\r\nJOIN\r\n    Rules ON Scans.ruleId = Rules.ID\r\nWHERE\r\n    Rules.name = '${CpuRule}' OR Rules.name = '${MemoryRule}'\r\nORDER BY\r\n    Scans.created_at\r\nDESC;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2733,28 +2852,9 @@
           }
         }
       ],
-      "title": "Bottom Day (beta)",
-      "transformations": [
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "string",
-                "enumConfig": {
-                  "text": [
-                    "Thursday"
-                  ]
-                },
-                "targetField": "Peak Day of Week"
-              }
-            ],
-            "fields": {}
-          }
-        }
-      ],
+      "title": "Peak CPU & Memory Alerts (All Data)",
       "transparent": true,
-      "type": "canvas"
+      "type": "table"
     },
     {
       "datasource": {
@@ -2781,12 +2881,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 4,
+        "w": 4,
         "x": 0,
-        "y": 69
+        "y": 68
       },
-      "id": 38,
+      "id": 46,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -2814,7 +2914,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${MemoryRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2835,7 +2935,7 @@
           }
         }
       ],
-      "title": "Peak Hour (beta)",
+      "title": "Memory Peak Hour (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -2858,7 +2958,104 @@
         "type": "grafana-postgresql-datasource",
         "uid": "${SourceDatabase}"
       },
-      "description": "Memory usage average week heatmap (all time)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "H~"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 68
+      },
+      "id": 47,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "edvj5frvn55vkb"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH HourlyUsage AS (\r\n    SELECT\r\n        EXTRACT(HOUR FROM Scans.created_at) AS \"Hour\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${MemoryRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(HOUR FROM Scans.created_at)\r\n)\r\nSELECT\r\n    \"Hour\"\r\nFROM\r\n    HourlyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" ASC\r\nLIMIT 1;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Memory Bottom Hour (all time / selected pod)",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "Hour"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${SourceDatabase}"
+      },
+      "description": "Memory usage average week heatmap (all time / selected pod)",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2875,10 +3072,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 24,
+        "h": 23,
         "w": 16,
         "x": 8,
-        "y": 69
+        "y": 68
       },
       "id": 37,
       "options": {
@@ -2956,7 +3153,7 @@
           "table": "scans"
         }
       ],
-      "title": "Memory Usage per Hour / Week day (all time)",
+      "title": "Memory Usage per Hour / Week day (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -2979,7 +3176,41 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Sunday"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Monday"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Tuesday"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Wednesday"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Thursday"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Friday"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Saturday"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -3014,12 +3245,12 @@
         ]
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
+        "h": 5,
+        "w": 4,
         "x": 0,
-        "y": 77
+        "y": 72
       },
-      "id": 39,
+      "id": 48,
       "options": {
         "infinitePan": false,
         "inlineEditing": true,
@@ -3034,7 +3265,8 @@
           "border": {
             "color": {
               "fixed": "dark-green"
-            }
+            },
+            "width": 0
           },
           "constraint": {
             "horizontal": "left",
@@ -3044,7 +3276,7 @@
             {
               "background": {
                 "color": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "#D9D9D9"
                 }
               },
@@ -3060,41 +3292,13 @@
                 },
                 "size": 20,
                 "text": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "",
                   "mode": "field"
                 },
                 "valign": "middle"
               },
-              "connections": [
-                {
-                  "color": {
-                    "fixed": "rgb(204, 204, 220)"
-                  },
-                  "path": "straight",
-                  "size": {
-                    "fixed": 2,
-                    "max": 10,
-                    "min": 1
-                  },
-                  "source": {
-                    "x": 0.999999867952787,
-                    "y": -1.0000001827399887
-                  },
-                  "sourceOriginal": {
-                    "x": 679,
-                    "y": 120
-                  },
-                  "target": {
-                    "x": 0.2611632248697764,
-                    "y": -0.32173898568737647
-                  },
-                  "targetOriginal": {
-                    "x": 672.1999988555908,
-                    "y": 167.19998168945312
-                  }
-                }
-              ],
+              "connections": [],
               "constraint": {
                 "horizontal": "left",
                 "vertical": "top"
@@ -3102,8 +3306,8 @@
               "name": "Element 1",
               "placement": {
                 "height": 134,
-                "left": 95,
-                "top": 45,
+                "left": -30,
+                "top": 7,
                 "width": 294
               },
               "type": "metric-value"
@@ -3131,7 +3335,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH WeeklyUsage AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS \"DayOfWeek\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(DOW FROM Scans.created_at)\r\n)\r\nSELECT\r\n    CASE \"DayOfWeek\"\r\n        WHEN 0 THEN 'Sunday'\r\n        WHEN 1 THEN 'Monday'\r\n        WHEN 2 THEN 'Tuesday'\r\n        WHEN 3 THEN 'Wednesday'\r\n        WHEN 4 THEN 'Thursday'\r\n        WHEN 5 THEN 'Friday'\r\n        WHEN 6 THEN 'Saturday'\r\n    END AS \"Peak Day of Week\"\r\nFROM\r\n    WeeklyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "WITH UsageData AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS day_of_week,\r\n        EXTRACT(HOUR FROM Scans.created_at) AS hour_of_day,\r\n        (Resources.content::jsonb->>'MemoryUsage')::float AS MemoryUsage\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${MemoryRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n),\r\nAggregatedData AS (\r\n    SELECT\r\n        day_of_week,\r\n        AVG(MemoryUsage) AS avg_memory_usage\r\n    FROM\r\n        UsageData\r\n    GROUP BY\r\n        day_of_week\r\n)\r\nSELECT\r\n    day_of_week AS day,\r\n    avg_memory_usage\r\nFROM\r\n    AggregatedData\r\nORDER BY\r\n    avg_memory_usage DESC\r\nLIMIT 1;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -3152,22 +3356,12 @@
           }
         }
       ],
-      "title": "Peak Day (beta)",
+      "title": "Memory Peak Day (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
           "options": {
-            "conversions": [
-              {
-                "destinationType": "string",
-                "enumConfig": {
-                  "text": [
-                    "Thursday"
-                  ]
-                },
-                "targetField": "Peak Day of Week"
-              }
-            ],
+            "conversions": [],
             "fields": {}
           }
         }
@@ -3185,12 +3379,46 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Sunday"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Monday"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Tuesday"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Wednesday"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Thursday"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Friday"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Saturday"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "orange",
+                "color": "super-light-yellow",
                 "value": null
               },
               {
@@ -3211,7 +3439,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "super-light-blue",
+                  "fixedColor": "super-light-green",
                   "mode": "fixed"
                 }
               }
@@ -3220,12 +3448,12 @@
         ]
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 84
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 72
       },
-      "id": 40,
+      "id": 49,
       "options": {
         "infinitePan": false,
         "inlineEditing": true,
@@ -3250,7 +3478,7 @@
             {
               "background": {
                 "color": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "#D9D9D9"
                 }
               },
@@ -3266,41 +3494,13 @@
                 },
                 "size": 20,
                 "text": {
-                  "field": "Peak Day of Week",
+                  "field": "day",
                   "fixed": "",
                   "mode": "field"
                 },
                 "valign": "middle"
               },
-              "connections": [
-                {
-                  "color": {
-                    "fixed": "rgb(204, 204, 220)"
-                  },
-                  "path": "straight",
-                  "size": {
-                    "fixed": 2,
-                    "max": 10,
-                    "min": 1
-                  },
-                  "source": {
-                    "x": 0.999999867952787,
-                    "y": -1.0000001827399887
-                  },
-                  "sourceOriginal": {
-                    "x": 679,
-                    "y": 120
-                  },
-                  "target": {
-                    "x": 0.2611632248697764,
-                    "y": -0.32173898568737647
-                  },
-                  "targetOriginal": {
-                    "x": 672.1999988555908,
-                    "y": 167.19998168945312
-                  }
-                }
-              ],
+              "connections": [],
               "constraint": {
                 "horizontal": "left",
                 "vertical": "top"
@@ -3308,8 +3508,8 @@
               "name": "Element 1",
               "placement": {
                 "height": 134,
-                "left": 95,
-                "top": 45,
+                "left": -26,
+                "top": 7,
                 "width": 294
               },
               "type": "metric-value"
@@ -3337,7 +3537,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "WITH WeeklyUsage AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS \"DayOfWeek\",\r\n        SUM((Resources.content::jsonb->>'MemoryUsage')::numeric) AS \"Total Memory Usage\"\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${CpuRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n    GROUP BY\r\n        EXTRACT(DOW FROM Scans.created_at)\r\n)\r\nSELECT\r\n    CASE \"DayOfWeek\"\r\n        WHEN 0 THEN 'Sunday'\r\n        WHEN 1 THEN 'Monday'\r\n        WHEN 2 THEN 'Tuesday'\r\n        WHEN 3 THEN 'Wednesday'\r\n        WHEN 4 THEN 'Thursday'\r\n        WHEN 5 THEN 'Friday'\r\n        WHEN 6 THEN 'Saturday'\r\n    END AS \"Peak Day of Week\"\r\nFROM\r\n    WeeklyUsage\r\nORDER BY\r\n    \"Total Memory Usage\" DESC\r\nLIMIT 1;\r\n",
+          "rawSql": "WITH UsageData AS (\r\n    SELECT\r\n        EXTRACT(DOW FROM Scans.created_at) AS day_of_week,\r\n        EXTRACT(HOUR FROM Scans.created_at) AS hour_of_day,\r\n        (Resources.content::jsonb->>'MemoryUsage')::float AS MemoryUsage\r\n    FROM\r\n        Resources\r\n    JOIN\r\n        Scans ON Resources.ID = Scans.resourceId\r\n    JOIN\r\n        Rules ON Scans.ruleId = Rules.ID\r\n    WHERE\r\n        Rules.name = '${MemoryRule}'\r\n        AND Resources.content::jsonb->>'podName' = '${Pod}'\r\n),\r\nAggregatedData AS (\r\n    SELECT\r\n        day_of_week,\r\n        AVG(MemoryUsage) AS avg_memory_usage\r\n    FROM\r\n        UsageData\r\n    GROUP BY\r\n        day_of_week\r\n)\r\nSELECT\r\n    day_of_week AS day,\r\n    avg_memory_usage\r\nFROM\r\n    AggregatedData\r\nORDER BY\r\n    avg_memory_usage ASC\r\nLIMIT 1;\r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -3358,7 +3558,7 @@
           }
         }
       ],
-      "title": "Bottom Day (beta)",
+      "title": "Memory Bottom Day (all time / selected pod)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -3386,7 +3586,97 @@
         "type": "grafana-postgresql-datasource",
         "uid": "${SourceDatabase}"
       },
-      "description": "Scan by scan, amount of Kexa peak alerts for CPU & Memory",
+      "description": "All kexa memory & CPU peak alerts (All Data)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "No Peak Alerts",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 8,
+        "x": 0,
+        "y": 77
+      },
+      "id": 51,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${SourceDatabase}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT\r\n    Resources.content::jsonb->>'podName' AS \"Pod Name\",\r\n    Resources.content::jsonb->>'name' AS \"Name\",\r\n    Resources.content::jsonb->'metadata'->>'namespace' AS \"Namespace\",\r\n    Rules.name AS \"Rule Name\",\r\n    Scans.created_at AS \"Scan time\"\r\nFROM\r\n    Resources\r\nJOIN\r\n    Scans ON Resources.ID = Scans.resourceId\r\nJOIN\r\n    Rules ON Scans.ruleId = Rules.ID\r\nWHERE\r\n    Rules.name = '${CpuRule}' OR Rules.name = '${MemoryRule}'\r\nORDER BY\r\n    Scans.created_at\r\nDESC;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Peak CPU & Memory Alerts (All Data)",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${SourceDatabase}"
+      },
+      "description": "Scan by scan, amount of Kexa peak alerts for CPU & Memory (All Data)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3454,7 +3744,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 93
+        "y": 91
       },
       "id": 1,
       "options": {
@@ -3518,7 +3808,7 @@
           "table": "scans"
         }
       ],
-      "title": "Amount of peak alerts by scan",
+      "title": "Amount of peak alerts by scan (All Data)",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -3579,7 +3869,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 102
+        "y": 100
       },
       "id": 35,
       "options": {
@@ -3635,7 +3925,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 112
+        "y": 110
       },
       "id": 29,
       "panels": [],
@@ -3709,8 +3999,8 @@
       {
         "current": {
           "selected": false,
-          "text": "azure-ip-masq-agent-jx8lk",
-          "value": "azure-ip-masq-agent-jx8lk"
+          "text": "azure-ip-masq-agent-hdztj",
+          "value": "azure-ip-masq-agent-hdztj"
         },
         "datasource": {
           "type": "grafana-postgresql-datasource",
@@ -3879,7 +4169,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -3890,6 +4180,6 @@
   "timezone": "browser",
   "title": "Kexa Kubernetes Limits & Request",
   "uid": "bdvenoj9w1wqob",
-  "version": 344,
+  "version": 402,
   "weekStart": ""
 }
