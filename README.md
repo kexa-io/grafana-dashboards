@@ -18,6 +18,34 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
 
 <br/>
 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#examples">Examples dashboards</a>
+	  <ul>
+        <li><a href="#addon">Kexa's main</a></li>
+        <li><a href="#kube">Kubernetes</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#howto">How to use</a>
+      <ul>
+        <li><a href="#step1">Step1</a></li>
+        <li><a href="#step2">Step2</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#dashboard-explanation">Dashboards Explanations</a>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+<br/>
+<br/>
+
 # <h3 align="center">Example dashboards</h3>
 
 ## <h4 align="left"> Kexa main dashboard</h4>
