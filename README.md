@@ -187,13 +187,13 @@ Below the optimization scores, you will see a panel with the minimum usage over 
 We have also included average deviation and min/max range, and on the right of those statistics, you have the list of Kexa peaks alerts raised.
 
 <div align="center">
-    <img src="images/readme_grafana_kube2.png" alt="grafana kube ranges results" width="400" height="auto">
+    <img src="images/reamde_grafana_kube2.png" alt="grafana kube ranges results" width="400" height="auto">
 </div>
 
 Next, you have the "*CONSUMPTION PEAKS*" section, used to help you schedule your pods:
 
 <div align="center">
-    <img src="images/readme_grafana_kube3.png" alt="grafana kube peaks results" width="400" height="auto">
+    <img src="images/reamde_grafana_kube3.png" alt="grafana kube peaks results" width="400" height="auto">
 </div>
 
 - **A heatmap**: Taking all data over time to make an average usage per week day and hour so you can know where the usage is the highest or lowest in average.
