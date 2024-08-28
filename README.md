@@ -1,10 +1,7 @@
 # Kexa's Grafana Dashboards
 
-Collection of Grafana dashboards to work with Kexa, help you monitoring &amp; visualize for low costs, by using data
-from Kexa to be visualized and monitored.
-
-Want more information on Kexa project ? 
-Check the Open Source repository : https://github.com/4urcloud/Kexa
+<br/>
+<br/>
 
 <div align="center" id="top">
 
@@ -17,9 +14,19 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
 </div>
 
 <br/>
+<br/>
 
-<details>
-  <summary>Table of Contents</summary>
+Collection of Grafana dashboards to work with Kexa, help you monitoring &amp; visualize for low costs, by using data
+from Kexa to be visualized and monitored.
+
+Want more information on Kexa project ? 
+Check the Open Source repository : https://github.com/4urcloud/Kexa
+
+<br/>
+<br/>
+
+
+<summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#examples">Examples dashboards</a>
@@ -40,8 +47,7 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
     </li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
+</ol>
 
 <br/>
 <br/>
