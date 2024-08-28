@@ -36,10 +36,11 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
       </ul>
     </li>
     <li>
-      <a href="#howto">How to use</a>
+      <a href="#setup">Setting up</a>
       <ul>
-        <li><a href="#step1">Step1</a></li>
-        <li><a href="#step2">Step2</a></li>
+        <li><a href="#basic-setup">Basic setup (mandatory)</a></li>
+        <li><a href="#addon-setup">Kexa main dashboards</a></li>
+        <li><a href="#kube-setup">Kubernetes dashboards</a></li>
       </ul>
     </li>
     <li>
@@ -52,15 +53,15 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
 <br/>
 <br/>
 
-# <h3 align="center">Example dashboards</h3>
+# <h3 align="center" id="examples">Example dashboards</h3>
 
-## <h4 align="left"> Kexa main dashboard</h4>
+## <h4 align="left" id="addon"> Kexa main dashboard</h4>
 <div align="center">
     <img src="images/readme_grafana_addons.png" alt="kexa main dashboard" width="400" height="auto">
 </div>
 <br/>
 
-## <h4 align="left"> Kexa kubernetes dashboards</h4>
+## <h4 align="left" id="kube"> Kexa kubernetes dashboards</h4>
 <div align="center">
     <img src="images/readme_grafana_kube1.png" alt="kexa main dashboard" width="400" height="auto">
 </div>
@@ -73,3 +74,13 @@ Check the Open Source repository : https://github.com/4urcloud/Kexa
     <img src="images/reamde_grafana_kube3.png" alt="kexa main dashboard" width="400" height="auto">
 </div>
 <br/>
+<br/>
+<br/>
+
+# <h3 align="center" id="setup">Setting up</h3>
+
+## <h4 align="left" id="basic-setup">Basic setup</h4>
+
+## <h4 align="left" id="addon-setup">Main dashboard</h4>
+
+## <h4 align="left" id="kube-setup">Kubernetes dashboard</h4>
